@@ -1,7 +1,24 @@
 body {
-    display:flex;
+    display: flex;
     justify-content: center;
 
+}
+#whitetokensstart {
+    display: grid;
+    grid-template-rows: repeat(2, 50px);
+    grid-template-columns: repeat(3, 50px);
+    grid-template-areas:
+        "whttkn1 whttkn2 whttkn3"
+        "whttkn4 whttkn5 whttkn6";
+
+}
+#blacktokensstart {
+    display: grid;
+    grid-template-rows: repeat(2, 50px);
+    grid-template-columns: repeat(3, 50px);
+    grid-template-areas:
+        "blktkn1 blktkn2 blktkn3"
+        "blktkn4 blktkn5 blktkn6";
 }
 main {
     display: grid;
@@ -21,7 +38,10 @@ main {
 }
 .boarddivs {
     border: 1px solid black;
-    
+}
+
+.tknbox {
+    border: 1px solid black;
 }
 
 #w1 {
@@ -93,12 +113,27 @@ main {
 #blank3 {
     grid-area: blank3;
     align-self: flex-end; 
-
 }
 #blank4 {
     grid-area: blank4;
     align-self: flex-end;
 }
 
-
+#whttkn1 {
+    grid-area: whttkn1;
+}
+#whttkn2 {
+    grid-area: whttkn2;
+}
+#whttkn3 {
+    grid-area: whttkn3;
+}
+#whttkn4 {
+    grid-area: whttkn4;
+}
+#whttkn5 {
+    grid-area: whttkn5;
+}
+#whttkn6 {
+    grid-area: whttkn6;
 }
