@@ -1,0 +1,104 @@
+body {
+    display:flex;
+    justify-content: center;
+
+}
+main {
+    display: grid;
+    grid-template-rows: repeat(8, 100px);
+    grid-template-columns: repeat(3, 100px);
+    grid-template-areas: 
+        "w4 f5 b4"
+        "w3 f6 b3"
+        "w2 f7 b2"
+        "w1 f8 b1"
+        "blank1 f9 blank2"
+        "blank3 f10 blank4" 
+        "w14 f11 b14"
+        "w13 f12 b13";
+    margin-left: auto;
+    margin-right: auto;
+}
+.boarddivs {
+    border: 1px solid black;
+    
+}
+
+#w1 {
+    grid-area: w1;
+}
+#w2 {
+    grid-area: w2;
+}
+#w3 {
+    grid-area: w3;
+}
+#w4 {
+    grid-area: w4;
+}
+#w13 {
+    grid-area: w13;
+}
+#w14 {
+    grid-area: w14;
+}
+#f5 {
+    grid-area: f5;
+}
+#f6 {
+    grid-area: f6;
+}
+#f7 {
+    grid-area: f7;
+}
+#f8 {
+    grid-area: f8;
+}
+#f9 {
+    grid-area: f9;
+}
+#f10 {
+    grid-area: f10;
+}
+#f11 {
+    grid-area: f11;
+}
+#f12 {
+    grid-area: f12;
+}
+#b1 {
+    grid-area: b1;
+}
+#b2 {
+    grid-area: b2;
+}
+#b3 {
+    grid-area: b3;
+}
+#b4 {
+    grid-area: b4;
+}
+#b13 {
+    grid-area: b13;
+}
+#b14 {
+    grid-area: b14;
+}
+#blank1 {
+    grid-area: blank1;
+}
+#blank2 {
+    grid-area: blank2;
+}
+#blank3 {
+    grid-area: blank3;
+    align-self: flex-end; 
+
+}
+#blank4 {
+    grid-area: blank4;
+    align-self: flex-end;
+}
+
+
+}
