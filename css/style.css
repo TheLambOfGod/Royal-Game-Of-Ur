@@ -4,7 +4,7 @@ body {
     grid-template-columns: repeat(3, 1fr);
     grid-template-areas:
         "whitetokensstart main blacktokensstart"
-        "whitetokensfinished main blacktokensfinished"
+        "whitediceroll main blackdiceroll"
         "whitetokensfinished main blacktokensfinished"
         "whitetokensfinished main blacktokensfinished";
 }   
@@ -68,6 +68,10 @@ main {
 
 .tknbox {
     border: 1px solid black;
+}
+
+.dicediv {
+    display: inline;
 }
 
 #w1 {
@@ -245,4 +249,11 @@ main {
 #blkcomptext {
     grid-area: blkcomptext;
     align-self: flex-end;
+}
+#whitediceroll {
+    grid-area: whitediceroll;
+}
+#blackdiceroll {
+    grid-area: blackdiceroll;
+    justify-self: end;
 }
