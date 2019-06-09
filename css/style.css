@@ -1,5 +1,6 @@
 body {
     display: grid;
+    background-color: aqua;
     grid-template-rows: repeat(4, 160px);
     grid-template-columns: repeat(3, 1fr);
     grid-template-areas:
@@ -256,4 +257,23 @@ main {
 #blackdiceroll {
     grid-area: blackdiceroll;
     justify-self: end;
+}
+
+.whitecircle {
+    background-color:whitesmoke;
+    border-radius: 100px;    
+}
+
+.blackcircle {
+    background-color: black;
+    border-radius: 100px;
+}
+
+#functiontestbutton {
+    width: 100px;
+    height: 50px;
+}
+#functiontestbutton2 {
+    width: 100px;
+    height: 50px;
 }
