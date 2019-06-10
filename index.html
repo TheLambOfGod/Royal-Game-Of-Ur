@@ -18,12 +18,10 @@
         <div id="whttkntext">Starting Tokens</div>
     </div>
     <div id="whitediceroll" class="diceroll">
-        <div class="dicediv">1</div>
-        <div class="dicediv">0</div>
-        <div class="dicediv">0</div>
-        <div class="dicediv">1</div>
+        <div id="whitedicediv"></div>
         <br>
         <button id="whitedicebtn">Roll Dice</button>
+        <input id="whitemovebox" type="number">
     </div>
     <div class="whitetokensgrid" id="whitetokensfinished">
         <div id="whtcomptext">Tokens Complete!</div>
@@ -70,12 +68,10 @@
             <div id="blktkntext">Starting Tokens</div>
     </div>
     <div id="blackdiceroll" class="diceroll">
-        <div class="dicediv">0</div>
-        <div class="dicediv">0</div>
-        <div class="dicediv">1</div>
-        <div class="dicediv">1</div>
+        <div id="blackdicediv"></div>
         <br>
         <button id="blackdicebtn">Roll Dice</button>
+        <input id="blackmovebox" type="number" value="" >
     </div>
     <div class="blacktokensgrid" id="blacktokensfinished">
             <div id="blkcomptext">Tokens Complete!</div>
@@ -88,7 +84,9 @@
             
     </div>
     <button id="functiontestbutton">Function Test</button>
+    
     <button id="functiontestbutton2">Function Test2</button>
+    
     <script src="js/script.js"></script>    
 </body>
 </html>
