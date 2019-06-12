@@ -24,6 +24,9 @@ const intersection = [];
 var whitePossibleMovesTemp = [];
 var notPossibleWhite;
 var whitePossibleMovesFilterArray;
+var removeChosen;
+var mainFieldWhiteFilterArray;
+
 
 document.addEventListener('DOMContentLoaded', function(e) {
    initGame();
@@ -141,8 +144,8 @@ whiteDiceRoll.addEventListener('click', function() {
    whiteDiceRoll.disabled = true;
    blackDiceRoll.disabled = true;
    playerTurnColor = 'w'; 
-   console.log("Player Turn Color = " + playerTurnColor);
-   console.log("White Main Field ", mainFieldWhite);
+   //console.log("Player Turn Color = " + playerTurnColor);
+   //console.log("White Main Field ", mainFieldWhite);
    document.getElementById('whitedicediv').innerHTML = diceTotal;
 });
 
@@ -163,7 +166,7 @@ functionTest.addEventListener('click', function() {
        });
        whitePossibleMoves = whitePossibleMovesFilterArray;
        blackDiceRoll.disabled = false;
-       diceTotal = 0;
+       diceTotal = null;
        document.getElementById('whitedicediv').innerHTML = "";
        console.log("Filtered Array ", whitePossibleMovesFilterArray);
        console.log("White Possible Moves", whitePossibleMoves);
@@ -175,8 +178,25 @@ functionTest.addEventListener('click', function() {
       && whitePossibleMoves.includes(parseInt(moveNumberWhite.value))) {
          console.log("This is TRUE");
 
+         removeChosen = moveNumberWhite.value - diceTotal;
+         console.log("Remove Chosen ", removeChosen);
          mainFieldWhite.push(parseInt(moveNumberWhite.value));
+         console.log("Main white field after adding chosen ", mainFieldWhite);
+         mainFieldWhiteFilterArray = mainFieldWhite.filter(function(value) {
+           return value !== removeChosen;
+         });
+         mainFieldWhite = mainFieldWhiteFilterArray;
+         console.log("Main Field returned minus removeChosen ", mainFieldWhiteFilterArray); 
+         whitePossibleMovesTemp = [];
+         blackDiceRoll.disabled = false;
+         diceTotal = null;
+         document.getElementById('whitedicediv').innerHTML = "";
          console.log("White Main Field ", mainFieldWhite);
+
+
+
+         // mainFieldWhite.push(parseInt(moveNumberWhite.value));
+         // console.log("White Main Field ", mainFieldWhite);
          
          //The below loop iterates over the main field, adding the dice total to each
          //and pushing the value to a temporary possible moves array
@@ -191,7 +211,7 @@ functionTest.addEventListener('click', function() {
 
       playerTurnColor === 'b';
       blackDiceRoll.disabled = false;
-      diceTotal = 0;
+      diceTotal = null;
       document.getElementById('whitedicediv').innerHTML = "";
       alert("White LOSES TURN!");
    } 
@@ -238,7 +258,7 @@ functionTest2.addEventListener('click', function () {
    } else if (diceTotal === 0) {
       playerTurnColor === 'w';
       whiteDiceRoll.disabled = false;
-      diceTotal = 0;
+      //diceTotal = 0;
       document.getElementById('blackdicediv').innerHTML = "";
       alert("Black LOSES TURN!");
    } 
