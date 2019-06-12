@@ -11,41 +11,37 @@ body {
 }   
 #whitetokensstart {
     display: grid;
-    grid-template-rows: repeat(3, 50px);
-    grid-template-columns: repeat(3, 50px);
+    grid-template-rows: repeat(2, 150px);
+    grid-template-columns: repeat(1, 250px);
     grid-template-areas:
-        "whttkn1 whttkn2 whttkn3"
-        "whttkn4 whttkn5 whttkn6"
-        "whttkntext whttkntext whttkntext";
+        "whttkn1"
+        "whttkntext";
 
 }
 #blacktokensstart {
     display: grid;
-    grid-template-rows: repeat(3, 50px);
-    grid-template-columns: repeat(3, 50px);
+    grid-template-rows: repeat(2, 150px);
+    grid-template-columns: repeat(1, 250px);
     grid-template-areas:
-        "blktkn1 blktkn2 blktkn3"
-        "blktkn4 blktkn5 blktkn6"
-        "blktkntext blktkntext blktkntext";
+        "blktkn1"
+        "blktkntext";
 }
 #whitetokensfinished {
     display: grid;
-    grid-template-rows: repeat(3, 50px);
-    grid-template-columns: repeat(3, 50px);
+    grid-template-rows: repeat(2, 150px);
+    grid-template-columns: repeat(1, 250px);
     grid-template-areas:
-        "whtcomptext whtcomptext whtcomptext"
-        "whtcomp1 whtcomp2 whtcomp3"
-        "whtcomp4 whtcomp5 whtcomp6";
+        "whtcomptext"
+        "whtcomp1";
     align-self: flex-end;
 }
 #blacktokensfinished {
     display: grid;
-    grid-template-rows: repeat(3, 50px);
-    grid-template-columns: repeat(3, 50px);
+    grid-template-rows: repeat(2, 150px);
+    grid-template-columns: repeat(1, 250px);
     grid-template-areas:
-        "blkcomptext blkcomptext blkcomptext"
-        "blkcomp1 blkcomp2 blkcomp3"
-        "blkcomp4 blkcomp5 blkcomp6";
+        "blkcomptext"
+        "blkcomp1";
     align-self: flex-end;
 }
 main {
@@ -153,42 +149,12 @@ main {
 #whttkn1 {
     grid-area: whttkn1;
 }
-#whttkn2 {
-    grid-area: whttkn2;
-}
-#whttkn3 {
-    grid-area: whttkn3;
-}
-#whttkn4 {
-    grid-area: whttkn4;
-}
-#whttkn5 {
-    grid-area: whttkn5;
-}
-#whttkn6 {
-    grid-area: whttkn6;
-}
+
 #whttkntext {
     grid-area: whttkntext;
-    
 }
 #blktkn1 {
     grid-area: blktkn1;
-}
-#blktkn2 {
-    grid-area: blktkn2;
-}
-#blktkn3 {
-    grid-area: blktkn3;
-}
-#blktkn4 {
-    grid-area: blktkn4;
-}
-#blktkn5 {
-    grid-area: blktkn5;
-}
-#blktkn6 {
-    grid-area: blktkn6;
 }
 #blktkntext {
     grid-area: blktkntext;
@@ -210,42 +176,12 @@ main {
 #whtcomp1 {
     grid-area: whtcomp1;
 }
-#whtcomp2 {
-    grid-area: whtcomp2;
-}
-#whtcomp3 {
-    grid-area: whtcomp3;
-}
-#whtcomp4 {
-    grid-area: whtcomp4;
-}
-#whtcomp5 {
-    grid-area: whtcomp5;
-}
-#whtcomp6 {
-    grid-area: whtcomp6;
-}
 #whtcomptext {
     grid-area: whtcomptext;
     align-self: flex-end;
 }
 #blkcomp1 {
     grid-area: blkcomp1;
-}
-#blkcomp2 {
-    grid-area: blkcomp2;
-}
-#blkcomp3 {
-    grid-area: blkcomp3;
-}
-#blkcomp4 {
-    grid-area: blkcomp4;
-}
-#blkcomp5 {
-    grid-area: blkcomp5;
-}
-#blkcomp6 {
-    grid-area: blkcomp6;
 }
 #blkcomptext {
     grid-area: blkcomptext;

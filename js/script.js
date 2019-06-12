@@ -12,12 +12,12 @@ var startingWhiteTokens;
 var startingBlackTokens;
 var whiteTokensInPlay = 0;
 var blackTokensInPlay = 0;
-var endingWhiteTokens;
-var endingBlackTokens;
+var endingWhiteTokens = [];
+var endingBlackTokens = [];
 var startingWhiteTokensGrid;
 var startingBlackTokensGrid;
-var functionTest;
-var functionTest2;
+var functionTestWhite;
+var functionTestBlack;
 var whiteDiceDiv;
 var blackDiceDiv;
 var whitePossibleMovesTemp = [];
@@ -25,42 +25,45 @@ var blackPossibleMovesTemp = [];
 var notPossibleWhite;
 var notPossibleBlack;
 var whitePossibleMovesFilterArray;
-var whitePossibleMovesFilterArray;
+var blackPossibleMovesFilterArray;
 var removeChosen;
 var mainFieldWhiteFilterArray;
 var mainFieldBlackFilterArray;
 var winningFieldWhite = [];
 var winningFieldBlack = [];
+var nums;
+var nums2;
+var nums3;
+var nums4;
+var whiteGridToken;
 
-//The below function initializes/resets the game
+
+//The below function initializes/resets the game when called on
 var initGame = function () {
    playerTurnColor = 'b';
    whiteDiceRoll.disabled = false;
    blackDiceRoll.disabled = true;
    startingBlackTokens = 6;
    startingWhiteTokens = 6;
-   endingBlackTokens = 0;
-   endingWhiteTokens = 0;
+   endingBlackTokens = [];
+   endingWhiteTokens = [];
 };
 
-//Calling the game initialization upon page load...
+//Game initialization upon page load...
 document.addEventListener('DOMContentLoaded', function(e) {
    initGame();
 });
 
+//DOM elements
 startingWhiteTokensGrid = document.getElementById('whitetokensstart');
 startingBlackTokensGrid = document.getElementById('blacktokensstart');
+startingWhiteTokensImage = document.getElementById('whitetokenstartgrid');
+startingBlackTokensImage = document.getElementById('blacktokenstartgrid');
 var moveNumberWhite = document.getElementById('whitemovebox');
 var moveNumberBlack = document.getElementById('blackmovebox');
-
-// var addDiceTotalToMove = function () {
-//  if (startingWhiteTokens.length < 5) {
-//    diceTotal };
-
 startingWhiteTokensGrid.addEventListener('click', function(e) {
    console.log("clickster") ;
 });
-
 startingBlackTokensGrid.addEventListener('click', function(e) {
    console.log("black clickster");
 });
@@ -87,14 +90,15 @@ var rollTheDice = function() {
 //DOM Elements for the dice roll
 whiteDiceRoll = document.getElementById('whitedicebtn');
 blackDiceRoll = document.getElementById('blackdicebtn');
-functionTest = document.getElementById('functiontestbutton');
-functionTest2 = document.getElementById('functiontestbutton2');
+functionTestWhite = document.getElementById('functiontestbutton');
+functionTestBlack = document.getElementById('functiontestbutton2');
 
 //The below will grab the dice total and add it to the array of possible moves if...
-var possibleMoves = function () {
+var possibleMovesFuncWhite = function () {
    //If main field has no moves on the board, the only possible move is 
    //adding the dice total to the possible moves array 
-   if (mainFieldWhite.length === 0 && diceTotal > 0) {   
+   if (mainFieldWhite.length === 0 && diceTotal > 0) {
+      whitePossibleMoves = [];   
       whitePossibleMoves.push(diceTotal);
       console.log("White Possible Moves - mField 0 ", whitePossibleMoves);
 
@@ -102,24 +106,27 @@ var possibleMoves = function () {
       //and the dice total is not 0, we need to add the dice total to 
       //the possible moves array and add the dice total to the current main field
       //moves while removing duplicates from the temp array
-   } else if (mainFieldWhite.length > 0 && mainFieldWhite.length < 6 && diceTotal > 0) {
+   } else if (mainFieldWhite.length > 0 && mainFieldWhite.length < 6 && diceTotal > 0 
+      && startingWhiteTokens > 0) {
       whitePossibleMovesTemp.push(diceTotal);
       for (let i = 0; i < mainFieldWhite.length; i++) {
-         whitePossibleMovesTemp.push(mainFieldWhite[i] + diceTotal);
-         console.log("White Possible Moves Temp ", whitePossibleMovesTemp);
-         notPossibleWhite = whitePossibleMovesTemp.filter(value => mainFieldWhite.includes(value));
-         console.log("Not possible moves white ", notPossibleWhite);
+            whitePossibleMovesTemp.push(mainFieldWhite[i] + diceTotal);
+            console.log("White Possible Moves Temp ", whitePossibleMovesTemp);
+            notPossibleWhite = whitePossibleMovesTemp.filter(value => mainFieldWhite.includes(value));
+            console.log("Not possible moves white ", notPossibleWhite);
 
-         whitePossibleMoves = whitePossibleMovesTemp.filter(function(value) {
+            whitePossibleMoves = whitePossibleMovesTemp.filter(function(value) {
             return !notPossibleWhite.includes(value)
          });
+   
          console.log("White Possible Moves ", whitePossibleMoves);
 
-         endingWhiteTokens = mainFieldWhite.filter(function(tokens) {
-            return tokens > 14;
-         });
+         // endingWhiteTokens = mainFieldWhite.filter(function(tokens) {
+         //    return tokens > 14;
+         // });
          console.log("Ending White Tokens ", endingWhiteTokens);
          console.log("White Main Field after pushing ending white tokens ", mainFieldWhite);
+         console.log("Starting White Tokens D ", startingWhiteTokens);
 
          //if there are no impossible moves in the temp array, push all temp values to the possible moves grid
             if (notPossibleWhite.length = 0) {
@@ -129,30 +136,106 @@ var possibleMoves = function () {
             }
       }
       
+    } else if (mainFieldWhite.length > 0 && diceTotal > 0 && startingWhiteTokens === 0) {
+      for (let i = 0; i < mainFieldWhite.length; i++) {
+         whitePossibleMovesTemp.push(mainFieldWhite[i] + diceTotal);
+         console.log("White Possible Moves Temp ", whitePossibleMovesTemp);
+         notPossibleWhite = whitePossibleMovesTemp.filter(value => mainFieldWhite.includes(value));
+         console.log("Not possible moves white ", notPossibleWhite);
+
+         whitePossibleMoves = whitePossibleMovesTemp.filter(function(value) {
+         return !notPossibleWhite.includes(value)
+         });
+         console.log("White Possible Moves ", whitePossibleMoves);
+
+         // endingWhiteTokens = mainFieldWhite.filter(function(tokens) {
+         //    return tokens > 14;
+         // });
+         console.log("Ending White Tokens ", endingWhiteTokens);
+         console.log("White Main Field after pushing ending white tokens ", mainFieldWhite);
+         console.log("Starting White Tokens D ", startingWhiteTokens);
       }
-}
+   }
+};
+
+var possibleMovesFuncBlack = function () {
+   //If main field has no moves on the board, the only possible move is 
+   //adding the dice total to the possible moves array 
+   if (mainFieldBlack.length === 0 && diceTotal > 0) {
+      blackPossibleMoves = [];   
+      blackPossibleMoves.push(diceTotal);
+      console.log("black Possible Moves - mField 0 ", blackPossibleMoves);
+
+      //If there are moves on the board and tokens still in the starting grid,
+      //and the dice total is not 0, we need to add the dice total to 
+      //the possible moves array and add the dice total to the current main field
+      //moves while removing duplicates from the temp array
+   } else if (mainFieldBlack.length > 0 && mainFieldBlack.length < 6 && diceTotal > 0 
+      && startingBlackTokens > 0) {
+      blackPossibleMovesTemp.push(diceTotal);
+      for (let i = 0; i < mainFieldBlack.length; i++) {
+            blackPossibleMovesTemp.push(mainFieldBlack[i] + diceTotal);
+            console.log("black Possible Moves Temp ", blackPossibleMovesTemp);
+            notPossibleBlack = blackPossibleMovesTemp.filter(value => mainFieldBlack.includes(value));
+            console.log("Not possible moves black ", notPossibleBlack);
+
+            blackPossibleMoves = blackPossibleMovesTemp.filter(function(value) {
+            return !notPossibleBlack.includes(value)
+         });
+   
+         console.log("black Possible Moves ", blackPossibleMoves);
+
+         // endingBlackTokens = mainFieldBlack.filter(function(tokens) {
+         //    return tokens > 14;
+         // });
+         console.log("Ending black Tokens ", endingBlackTokens);
+         console.log("black Main Field after pushing ending black tokens ", mainFieldBlack);
+         console.log("Starting black Tokens D ", startingBlackTokens);
+
+         //if there are no impossible moves in the temp array, push all temp values to the possible moves grid
+            if (notPossibleBlack.length = 0) {
+               for (let i = 0; i < blackPossibleMovesTemp.length; i++) {
+                  blackPossibleMoves = blackPossibleMovesTemp;
+               }
+            }
+      }
+      
+    } else if (mainFieldBlack.length > 0 && diceTotal > 0 && startingBlackTokens === 0) {
+      for (let i = 0; i < mainFieldBlack.length; i++) {
+         blackPossibleMovesTemp.push(mainFieldBlack[i] + diceTotal);
+         console.log("black Possible Moves Temp ", blackPossibleMovesTemp);
+         notPossibleBlack = blackPossibleMovesTemp.filter(value => mainFieldBlack.includes(value));
+         console.log("Not possible moves black ", notPossibleBlack);
+
+         blackPossibleMoves = blackPossibleMovesTemp.filter(function(value) {
+         return !notPossibleBlack.includes(value)
+         });
+         console.log("black Possible Moves ", blackPossibleMoves);
+
+         // endingBlackTokens = mainFieldBlack.filter(function(tokens) {
+         //    return tokens > 14;
+         // });
+         console.log("Ending black Tokens ", endingBlackTokens);
+         console.log("black Main Field after pushing ending black tokens ", mainFieldBlack);
+         console.log("Starting black Tokens D ", startingBlackTokens);
+      }
+   }
+};
+
+
    //The below is a bitch. It is breaking the program.
-//    } else if (mainFieldWhite.length !==0 && startingWhiteTokens === 0) {
+//    } else if (mainFieldwhite.length !==0 && startingWhiteTokens === 0) {
 //       console.log("Possible moves ELSE IF");
 //    }
 // }; 
 
-//Logic for black dice roll
-blackDiceRoll.addEventListener('click', function() {
-   emptyTheDiceArray();
-   rollTheDice();
-   blackDiceRoll.disabled = true;
-   whiteDiceRoll.disabled = true;
-   playerTurnColor = 'b';
-   document.getElementById('blackdicediv').innerHTML = diceTotal;
-});
 
 //Logic for white dice roll
 whiteDiceRoll.addEventListener('click', function() {
    emptyTheDiceArray();
    rollTheDice();
-   console.log("Dice roll: ", diceTotal);
-   possibleMoves();
+   console.log("Dice roll (white): ", diceTotal);
+   possibleMovesFuncWhite();
    whiteDiceRoll.disabled = true;
    blackDiceRoll.disabled = true;
    playerTurnColor = 'w'; 
@@ -161,10 +244,21 @@ whiteDiceRoll.addEventListener('click', function() {
    document.getElementById('whitedicediv').innerHTML = diceTotal;
 });
 
+//Logic for black dice roll
+blackDiceRoll.addEventListener('click', function() {
+   emptyTheDiceArray();
+   rollTheDice();
+   console.log("Dice roll (black): ", diceTotal);
+   possibleMovesFuncBlack();
+   blackDiceRoll.disabled = true;
+   whiteDiceRoll.disabled = true;
+   playerTurnColor = 'b';
+   document.getElementById('blackdicediv').innerHTML = diceTotal;
+});
 
 //The below test mimics the player moving a token from the token grid to the main field
 
-functionTest.addEventListener('click', function() {
+functionTestWhite.addEventListener('click', function() {
 
    //Move token from grid to board - If player rolls greater than 0 and no pieces are on the board...
    if (playerTurnColor === 'w' && diceTotal !== 0 && mainFieldWhite.length === 0
@@ -178,11 +272,24 @@ functionTest.addEventListener('click', function() {
        });
        whitePossibleMoves = whitePossibleMovesFilterArray;
        if (mainFieldWhite.length > 0) { 
-          startingWhiteTokens = (6 - mainFieldWhite.length);
+          startingWhiteTokens = (6 - mainFieldWhite.length - endingWhiteTokens.length);
          }
        console.log("Starting White Tokens Grid A ", startingWhiteTokens);
        blackDiceRoll.disabled = false;
        diceTotal = null;
+       var whiteTokens = document.getElementById('whitetokenstartgrid');
+       whiteTokens.src = "img/White" + startingWhiteTokens + ".png";
+       if (endingWhiteTokens.length > 0) {
+          var whiteTokensEnd = document.getElementById('whitetokenscomplete');
+          whiteTokensEnd.src = "img/White" + endingWhiteTokens.length + ".png";
+       };
+
+       var whiteGridToken = "";
+       for (let i = 0; i < mainFieldWhite.length; i++) {
+         whiteGridToken = document.getElementById(playerTurnColor + mainFieldWhite[i] + "img");
+         whiteGridToken.src = "img/White1.png";      
+      };
+      
        document.getElementById('whitedicediv').innerHTML = "";
        console.log("Filtered Array ", whitePossibleMovesFilterArray);
        console.log("White Possible Moves", whitePossibleMoves);
@@ -205,26 +312,43 @@ functionTest.addEventListener('click', function() {
          console.log("Main Field returned minus removeChosen ", mainFieldWhiteFilterArray);
          
          if (mainFieldWhite.length > 0) { 
-            startingWhiteTokens = (6 - mainFieldWhite.length);
+            startingWhiteTokens = (6 - mainFieldWhite.length - endingWhiteTokens.length);
          };
-         console.log("Starting White Tokens B ", startingWhiteTokens); 
+
+         nums = mainFieldWhite.filter(function(value) {
+            return value > 14;
+         });
+         if (nums > 0) {
+            endingWhiteTokens.push(nums);
+         };
+         console.log("Numbers greater than 14 ", nums);
+         nums2 = mainFieldWhite.filter(function(val) {
+          return !nums.includes(val);
+        });
+        console.log("main field white without numbers greater than 14 ", nums2);
+
+         mainFieldWhite = nums2;
+         console.log("Mainfield White after removing greater than 14 ", nums2);
+         console.log("Ending White Tokens ", endingWhiteTokens);
+         console.log("Starting White Tokens B ", startingWhiteTokens);
+         var whiteTokens = document.getElementById('whitetokenstartgrid');
+         whiteTokens.src = "img/White" + startingWhiteTokens + ".png";
+         
          whitePossibleMovesTemp = [];
          blackDiceRoll.disabled = false;
          diceTotal = null;
          document.getElementById('whitedicediv').innerHTML = "";
+         if (endingWhiteTokens.length > 0) {
+            var whiteTokensEnd = document.getElementById('whitetokenscomplete');
+            whiteTokensEnd.src = "img/White" + endingWhiteTokens.length + ".png";
+         };
          console.log("White Main Field ", mainFieldWhite);
-
-
-
-         // mainFieldWhite.push(parseInt(moveNumberWhite.value));
-         // console.log("White Main Field ", mainFieldWhite);
          
-         //The below loop iterates over the main field, adding the dice total to each
-         //and pushing the value to a temporary possible moves array
-      // /   for (let i = 0; i < mainFieldWhite.length; i++) {
-      //       whitePossibleMovesTemp.push(mainFieldWhite[i] += diceTotal);
-      //    }
-      //    console.log("White Possible Moves Temp ", whitePossibleMovesTemp);
+         var whiteGridToken = "";
+         for (let i = 0; i < mainFieldWhite.length; i++) {
+            whiteGridToken = document.getElementById(playerTurnColor + mainFieldWhite[i] + "img");
+            whiteGridToken.src = "img/White1.png";      
+         };
 
       // If player rolls 0...   
       } else if (diceTotal === 0) {
@@ -235,67 +359,161 @@ functionTest.addEventListener('click', function() {
       blackDiceRoll.disabled = false;
       diceTotal = null;
       document.getElementById('whitedicediv').innerHTML = "";
+      var whiteTokens = document.getElementById('whitetokenstartgrid');
+      whiteTokens.src = "img/White" + startingWhiteTokens + ".png"; 
+      if (endingWhiteTokens.length > 0) {
+         var whiteTokensEnd = document.getElementById('whitetokenscomplete');
+         whiteTokensEnd.src = "img/White" + endingWhiteTokens.length + ".png";
+      };
+
+      var whiteGridToken = "";
+      for (let i = 0; i < mainFieldWhite.length; i++) {
+         whiteGridToken = document.getElementById(playerTurnColor + mainFieldWhite[i] + "img");
+         whiteGridToken.src = "img/White1.png";      
+      };
+      
       alert("White LOSES TURN!");
    } 
 
 
 });
+functionTestBlack.addEventListener('click', function() {
 
+   //Move token from grid to board - If player rolls greater than 0 and no pieces are on the board...
+   if (playerTurnColor === 'b' && diceTotal !== 0 && mainFieldBlack.length === 0
+   && blackPossibleMoves.includes(parseInt(moveNumberBlack.value))) {
 
+      mainFieldBlack.push(parseInt(moveNumberBlack.value));
+      
+      //The below removes the move the player chose from the array of possible moves
+       blackPossibleMovesFilterArray = blackPossibleMoves.filter(function(value) {
+          return value !== parseInt(moveNumberBlack.value);
+       });
+       blackPossibleMoves = blackPossibleMovesFilterArray;
+       if (mainFieldBlack.length > 0) { 
+          startingBlackTokens = (6 - mainFieldBlack.length - endingBlackTokens.length);
+         }
+       console.log("Starting Black Tokens Grid A ", startingBlackTokens);
+       whiteDiceRoll.disabled = false;
+       diceTotal = null;
+       document.getElementById('blackdicediv').innerHTML = "";
+       var blackTokens = document.getElementById('blacktokenstartgrid');
+       blackTokens.src = "img/Black" + startingBlackTokens + ".png";
+       if (endingBlackTokens.length > 0) {
+         var blackTokensEnd = document.getElementById('blacktokenscomplete');
+         blackTokensEnd.src = "img/Black" + endingBlackTokens.length + ".png";
+       };
+       for (let i = 0; i < mainFieldBlack.length; i++) {
+         var blackGridToken = document.getElementById(playerTurnColor + mainFieldBlack[i] + "img");
+         blackGridToken.src = "img/Black1.png";      
+      };
+       console.log("Filtered Array ", blackPossibleMovesFilterArray);
+       console.log("Black Possible Moves", blackPossibleMoves);
+       console.log("Black Main Field ", mainFieldBlack);
 
-
-
-// functionTest.addEventListener('click', function () {
-//    if (playerTurnColor === 'w' && diceTotal !== 0 && mainFieldWhite.length === 0 
-//    && whitePossibleMoves.includes(parseInt(moveNumberWhite.value))
-//    ) {
-//       console.log("if TRUE");
-//    //the below is allowing the else if portion of the function to execute
-//    //mainFieldWhite.push(diceTotal);
-//    blackDiceRoll.disabled = false;
-//    diceTotal = 0;
-//    document.getElementById('whitedicediv').innerHTML = "";
-//    console.log("White Main Field " + mainFieldWhite);
-//    console.log("White Move Choice " + moveNumberWhite.value);
    
-//    } else if (playerTurnColor === 'w' && diceTotal !== 0 
-//    && whitePossibleMoves.includes(parseInt(moveNumberWhite.value))
-//    ) {
-//       console.log("if FALSE");
-//       blackDiceRoll.disabled = false;
-//       diceTotal = 0;
-//       document.getElementById('whitedicediv').innerHTML = "";
-//       console.log("White Main Field " + mainFieldWhite);
-//       console.log("White Move Choice " + moveNumberWhite.value);
-//    }
-// });
+       //If player rolls greater than 0 and pieces are on the board....
+   }  else if (playerTurnColor === 'b' && diceTotal !== 0 && mainFieldBlack.length > 0
+      && blackPossibleMoves.includes(parseInt(moveNumberBlack.value))) {
+         removeChosen = moveNumberBlack.value - diceTotal;
+         console.log("Remove Chosen ", removeChosen);
+         mainFieldBlack.push(parseInt(moveNumberBlack.value));
+         console.log("Main black field after adding chosen ", mainFieldBlack);
+         mainFieldBlackFilterArray = mainFieldBlack.filter(function(value) {
+           return value !== removeChosen;
+         });
+         mainFieldBlack = mainFieldBlackFilterArray;
+         console.log("Main Field returned minus removeChosen ", mainFieldBlackFilterArray);
+         
+         if (mainFieldBlack.length > 0) { 
+            startingBlackTokens = (6 - mainFieldBlack.length - endingBlackTokens.length);
+         };
+         for (let i = 0; i < mainFieldBlack.length; i++) {
+            var blackGridToken = document.getElementById(playerTurnColor + mainFieldBlack[i] + "img");
+            blackGridToken.src = "img/Black1.png";      
+         };
 
-functionTest2.addEventListener('click', function () {
-   if (startingBlackTokensGrid.length = 6 && playerTurnColor === 'b'&& diceTotal !== 0) {
-   mainFieldBlack.push(diceTotal);
-   whiteDiceRoll.disabled = false;
-   //console.log("Black Main Field " + mainFieldBlack);
-   document.getElementById('blackdicediv').innerHTML ="";
-   
-   } else if (diceTotal === 0) {
+         nums3 = mainFieldBlack.filter(function(value) {
+            return value > 14;
+         });
+         if (nums3 > 0) {
+            endingBlackTokens.push(nums);
+         };
+         console.log("Numbers greater than 14 ", nums3);
+         nums4 = mainFieldBlack.filter(function(val) {
+          return !nums3.includes(val);
+        });
+        console.log("main field black without numbers greater than 14 ", nums4);
+
+         mainFieldBlack = nums4;
+         console.log("Mainfield Black after removing greater than 14 ", nums4);
+         console.log("Ending Black Tokens ", endingBlackTokens);
+
+         
+         console.log("Starting Black Tokens B ", startingBlackTokens); 
+         blackPossibleMovesTemp = [];
+         whiteDiceRoll.disabled = false;
+         diceTotal = null;
+         document.getElementById('blackdicediv').innerHTML = "";
+         var blackTokens = document.getElementById('blacktokenstartgrid');
+         blackTokens.src = "img/Black" + startingBlackTokens + ".png"; 
+         if (endingBlackTokens.length > 0) {
+            var blackTokensEnd = document.getElementById('blacktokenscomplete');
+            blackTokensEnd.src = "img/Black" + endingBlackTokens.length + ".png";
+          };
+         console.log("Black Main Field ", mainFieldBlack);
+         
+
+      // If player rolls 0...   
+      } else if (diceTotal === 0) {
+         console.log("Zero");
+
       playerTurnColor === 'w';
+      console.log("Starting Black Tokens Grid C ", startingBlackTokens);
       whiteDiceRoll.disabled = false;
-      //diceTotal = 0;
+      diceTotal = null;
       document.getElementById('blackdicediv').innerHTML = "";
+      var blackTokens = document.getElementById('blacktokenstartgrid');
+      blackTokens.src = "img/Black" + startingBlackTokens + ".png";
+      if (endingBlackTokens.length > 0) {
+         var blackTokensEnd = document.getElementById('blacktokenscomplete');
+         blackTokensEnd.src = "img/Black" + endingBlackTokens.length + ".png";
+       };
+       for (let i = 0; i < mainFieldBlack.length; i++) {
+         var blackGridToken = document.getElementById(playerTurnColor + mainFieldBlack[i] + "img");
+         blackGridToken.src = "img/Black1.png";      
+      };
       alert("Black LOSES TURN!");
    } 
+
+
 });
-//End function test
-
-// var initialWhiteMove = function () {
-//    if (startingWhiteTokensGrid.length = 6 && playerTurnColor === 'w'&& diceTotal !== 0) {
-//       mainFieldWhite.push(diceTotal);
-//       blackDiceRoll.disabled = false;
-//    }
-// };
-
-// var initialBlackMove = function () {
+// functionTestBlack.addEventListener('click', function () {
 //    if (startingBlackTokensGrid.length = 6 && playerTurnColor === 'b'&& diceTotal !== 0) {
+//    mainFieldBlack.push(diceTotal);
+//    whiteDiceRoll.disabled = false;
+//    //console.log("Black Main Field " + mainFieldBlack);
+//    document.getElementById('blackdicediv').innerHTML ="";
+   
+//    } else if (diceTotal === 0) {
+//       playerTurnColor === 'w';
+//       whiteDiceRoll.disabled = false;
+//       //diceTotal = 0;
+//       document.getElementById('blackdicediv').innerHTML = "";
+//       alert("Black LOSES TURN!");
+//    } 
+// });
+// //End function test
+
+// // var initialWhiteMove = function () {
+// //    if (startingWhiteTokensGrid.length = 6 && playerTurnColor === 'w'&& diceTotal !== 0) {
+// //       mainFieldWhite.push(diceTotal);
+// //       blackDiceRoll.disabled = false;
+// //    }
+// // };
+
+// // var initialBlackMove = function () {
+// //    if (startingBlackTokensGrid.length = 6 && playerTurnColor === 'b'&& diceTotal !== 0) {
 //       mainFieldBlack.push(diceTotal);
 //       whiteDiceRoll.disabled = true;
 //    }
@@ -319,11 +537,6 @@ functionTest2.addEventListener('click', function () {
 //The below variable is just for the "for loop" dice rolling
 //var diceArray = [dice1, dice2, dice3, dice4];
 //DOM references
-
-
-//Event listeners
-
-
 
 
 // function diceTotal() {
