@@ -95,14 +95,19 @@ main {
 #w4 {
     grid-area: w4;
     border-top: 4px solid black;
+    background-image: url("../img/Rosette5.png");
+    background-size: cover;
 }
 #w13 {
     grid-area: w13;
     border-bottom: 4px solid black;
+
 }
 #w14 {
     grid-area: w14;
     border-top: 4px solid black;
+    background-image: url("../img/Rosette5.png");
+    background-size: cover;
 }
 #f5 {
     grid-area: f5;
@@ -116,6 +121,8 @@ main {
 }
 #f8 {
     grid-area: f8;
+    background-image: url("../img/Rosette5.png");
+    background-size: cover;
 }
 #f9 {
     grid-area: f9;
@@ -147,6 +154,8 @@ main {
 #b4 {
     grid-area: b4;
     border-top: 4px solid black;
+    background-image: url("../img/Rosette5.png");
+    background-size: cover;
 }
 #b13 {
     grid-area: b13;
@@ -155,6 +164,8 @@ main {
 #b14 {
     grid-area: b14;
     border-top: 4px solid black;
+    background-image: url("../img/Rosette5.png");
+    background-size: cover;
 }
 #blank1 {
     grid-area: blank1;
