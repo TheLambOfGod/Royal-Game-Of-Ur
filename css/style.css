@@ -1,6 +1,8 @@
 body {
     display: grid;
-    background-color: aqua;
+    background-image: url("../img/Mesopotamia.jpg");
+    background-size: cover;
+    background-attachment: fixed;
     grid-template-rows: repeat(4, 160px);
     grid-template-columns: repeat(3, 1fr);
     grid-template-areas:
@@ -61,6 +63,15 @@ main {
 }
 .boarddivs {
     border: 1px solid black;
+    background-color: burlywood;
+}
+
+.whitedivs {
+    border-left: 5px solid gray;
+}
+
+.blackdivs {
+    border-right: 4px solid saddlebrown;
 }
 
 .tknbox {
@@ -73,6 +84,7 @@ main {
 
 #w1 {
     grid-area: w1;
+    border-bottom: 4px solid black;
 }
 #w2 {
     grid-area: w2;
@@ -82,15 +94,19 @@ main {
 }
 #w4 {
     grid-area: w4;
+    border-top: 4px solid black;
 }
 #w13 {
     grid-area: w13;
+    border-bottom: 4px solid black;
 }
 #w14 {
     grid-area: w14;
+    border-top: 4px solid black;
 }
 #f5 {
     grid-area: f5;
+    border-top: 4px solid black;
 }
 #f6 {
     grid-area: f6;
@@ -103,18 +119,24 @@ main {
 }
 #f9 {
     grid-area: f9;
+    border-left: 5px solid gray;
+    border-right: 4px solid saddlebrown;
 }
 #f10 {
     grid-area: f10;
+    border-left: 5px solid gray;
+    border-right: 4px solid saddlebrown;
 }
 #f11 {
     grid-area: f11;
 }
 #f12 {
     grid-area: f12;
+    border-bottom: 4px solid black;
 }
 #b1 {
     grid-area: b1;
+    border-bottom: 4px solid black;
 }
 #b2 {
     grid-area: b2;
@@ -124,12 +146,15 @@ main {
 }
 #b4 {
     grid-area: b4;
+    border-top: 4px solid black;
 }
 #b13 {
     grid-area: b13;
+    border-bottom: 4px solid black;
 }
 #b14 {
     grid-area: b14;
+    border-top: 4px solid black;
 }
 #blank1 {
     grid-area: blank1;
@@ -148,6 +173,7 @@ main {
 
 #whttkn1 {
     grid-area: whttkn1;
+    background-color: aqua
 }
 
 #whttkntext {
@@ -155,6 +181,7 @@ main {
 }
 #blktkn1 {
     grid-area: blktkn1;
+    background-color: aqua
 }
 #blktkntext {
     grid-area: blktkntext;
@@ -212,4 +239,13 @@ main {
 #functiontestbutton2 {
     width: 100px;
     height: 50px;
+}
+.dicebutton {
+    width: 50px;
+    height: 50px;
+}
+
+.dicediv {
+    background-color: aliceblue;
+    font-size: xx-large;
 }

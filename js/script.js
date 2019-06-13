@@ -259,7 +259,13 @@ blackDiceRoll.addEventListener('click', function() {
 //The below test mimics the player moving a token from the token grid to the main field
 
 functionTestWhite.addEventListener('click', function() {
-
+   //This will clear the main field of images
+      if (whitePossibleMoves.includes(parseInt(moveNumberWhite.value))) {
+      imgs = document.querySelectorAll('main img');
+      console.log("Imgs ", imgs);
+      imgs.forEach(img => img.src = "")
+      console.log("Imgs cleared ", imgs);
+      };
    //Move token from grid to board - If player rolls greater than 0 and no pieces are on the board...
    if (playerTurnColor === 'w' && diceTotal !== 0 && mainFieldWhite.length === 0
    && whitePossibleMoves.includes(parseInt(moveNumberWhite.value))) {
@@ -286,9 +292,16 @@ functionTestWhite.addEventListener('click', function() {
 
        var whiteGridToken = "";
        for (let i = 0; i < mainFieldWhite.length; i++) {
-         whiteGridToken = document.getElementById(playerTurnColor + mainFieldWhite[i] + "img");
-         whiteGridToken.src = "img/White1.png";      
+         whiteGridToken = document.querySelector("." + "w" + mainFieldWhite[i] + "img")
+         whiteGridToken.src = "img/White.png";      
       };
+
+      var blackGridToken = "";
+      for (let i = 0; i < mainFieldBlack.length; i++) {
+        var blackGridToken = document.querySelector("." + "b" + mainFieldBlack[i] + "img");
+        blackGridToken.src = "img/Black.png";
+        console.log("black grid token ", blackGridToken);      
+     };
       
        document.getElementById('whitedicediv').innerHTML = "";
        console.log("Filtered Array ", whitePossibleMovesFilterArray);
@@ -346,9 +359,16 @@ functionTestWhite.addEventListener('click', function() {
          
          var whiteGridToken = "";
          for (let i = 0; i < mainFieldWhite.length; i++) {
-            whiteGridToken = document.getElementById(playerTurnColor + mainFieldWhite[i] + "img");
-            whiteGridToken.src = "img/White1.png";      
+            whiteGridToken = document.querySelector("." + "w" + mainFieldWhite[i] + "img")
+            whiteGridToken.src = "img/White.png";      
          };
+
+         var blackGridToken = "";
+         for (let i = 0; i < mainFieldBlack.length; i++) {
+           var blackGridToken = document.querySelector("." + "b" + mainFieldBlack[i] + "img");
+           blackGridToken.src = "img/Black.png";
+           console.log("black grid token ", blackGridToken);      
+        };
 
       // If player rolls 0...   
       } else if (diceTotal === 0) {
@@ -368,16 +388,27 @@ functionTestWhite.addEventListener('click', function() {
 
       var whiteGridToken = "";
       for (let i = 0; i < mainFieldWhite.length; i++) {
-         whiteGridToken = document.getElementById(playerTurnColor + mainFieldWhite[i] + "img");
-         whiteGridToken.src = "img/White1.png";      
+         whiteGridToken = document.querySelector("." + "w" + mainFieldWhite[i] + "img");
+         whiteGridToken.src = "img/White.png";      
       };
-      
+
+      for (let i = 0; i < mainFieldBlack.length; i++) {
+         var blackGridToken = document.querySelector("." + "b" + mainFieldBlack[i] + "img");
+         blackGridToken.src = "img/Black.png";
+         console.log("black grid token ", blackGridToken);      
+      };
       alert("White LOSES TURN!");
    } 
 
 
 });
 functionTestBlack.addEventListener('click', function() {
+      if (blackPossibleMoves.includes(parseInt(moveNumberBlack.value))) {
+      imgs = document.querySelectorAll('main .b');
+      console.log("Imgs ", imgs);
+      imgs.forEach(img => img.src = "")
+      console.log("Imgs cleared ", imgs);
+      };
 
    //Move token from grid to board - If player rolls greater than 0 and no pieces are on the board...
    if (playerTurnColor === 'b' && diceTotal !== 0 && mainFieldBlack.length === 0
@@ -403,10 +434,19 @@ functionTestBlack.addEventListener('click', function() {
          var blackTokensEnd = document.getElementById('blacktokenscomplete');
          blackTokensEnd.src = "img/Black" + endingBlackTokens.length + ".png";
        };
+
+       var blackGridToken = "";
        for (let i = 0; i < mainFieldBlack.length; i++) {
-         var blackGridToken = document.getElementById(playerTurnColor + mainFieldBlack[i] + "img");
-         blackGridToken.src = "img/Black1.png";      
+         var blackGridToken = document.querySelector("." + "b" + mainFieldBlack[i] + "img");
+         blackGridToken.src = "img/Black.png";
+         console.log("black grid token ", blackGridToken);      
       };
+
+      var whiteGridToken = "";
+         for (let i = 0; i < mainFieldWhite.length; i++) {
+            whiteGridToken = document.querySelector("." + "w" + mainFieldWhite[i] + "img")
+            whiteGridToken.src = "img/White.png";      
+         };
        console.log("Filtered Array ", blackPossibleMovesFilterArray);
        console.log("Black Possible Moves", blackPossibleMoves);
        console.log("Black Main Field ", mainFieldBlack);
@@ -428,11 +468,7 @@ functionTestBlack.addEventListener('click', function() {
          if (mainFieldBlack.length > 0) { 
             startingBlackTokens = (6 - mainFieldBlack.length - endingBlackTokens.length);
          };
-         for (let i = 0; i < mainFieldBlack.length; i++) {
-            var blackGridToken = document.getElementById(playerTurnColor + mainFieldBlack[i] + "img");
-            blackGridToken.src = "img/Black1.png";      
-         };
-
+         
          nums3 = mainFieldBlack.filter(function(value) {
             return value > 14;
          });
@@ -441,14 +477,14 @@ functionTestBlack.addEventListener('click', function() {
          };
          console.log("Numbers greater than 14 ", nums3);
          nums4 = mainFieldBlack.filter(function(val) {
-          return !nums3.includes(val);
-        });
-        console.log("main field black without numbers greater than 14 ", nums4);
-
+            return !nums3.includes(val);
+         });
+         console.log("main field black without numbers greater than 14 ", nums4);
+         
          mainFieldBlack = nums4;
          console.log("Mainfield Black after removing greater than 14 ", nums4);
          console.log("Ending Black Tokens ", endingBlackTokens);
-
+         
          
          console.log("Starting Black Tokens B ", startingBlackTokens); 
          blackPossibleMovesTemp = [];
@@ -460,11 +496,22 @@ functionTestBlack.addEventListener('click', function() {
          if (endingBlackTokens.length > 0) {
             var blackTokensEnd = document.getElementById('blacktokenscomplete');
             blackTokensEnd.src = "img/Black" + endingBlackTokens.length + ".png";
-          };
+         };
          console.log("Black Main Field ", mainFieldBlack);
          
+         for (let i = 0; i < mainFieldBlack.length; i++) {
+            var blackGridToken = document.querySelector("." + "b" + mainFieldBlack[i] + "img");
+            blackGridToken.src = "img/Black.png";  
+            console.log("black grid token ", blackGridToken);    
+         };
 
-      // If player rolls 0...   
+         var whiteGridToken = "";
+         for (let i = 0; i < mainFieldWhite.length; i++) {
+            whiteGridToken = document.querySelector("." + "w" + mainFieldWhite[i] + "img")
+            whiteGridToken.src = "img/White.png";      
+         };
+         
+         // If player rolls 0...   
       } else if (diceTotal === 0) {
          console.log("Zero");
 
@@ -473,6 +520,7 @@ functionTestBlack.addEventListener('click', function() {
       whiteDiceRoll.disabled = false;
       diceTotal = null;
       document.getElementById('blackdicediv').innerHTML = "";
+
       var blackTokens = document.getElementById('blacktokenstartgrid');
       blackTokens.src = "img/Black" + startingBlackTokens + ".png";
       if (endingBlackTokens.length > 0) {
@@ -480,30 +528,21 @@ functionTestBlack.addEventListener('click', function() {
          blackTokensEnd.src = "img/Black" + endingBlackTokens.length + ".png";
        };
        for (let i = 0; i < mainFieldBlack.length; i++) {
-         var blackGridToken = document.getElementById(playerTurnColor + mainFieldBlack[i] + "img");
-         blackGridToken.src = "img/Black1.png";      
+         var blackGridToken = document.querySelector("." + "b" + mainFieldBlack[i] + "img");
+         blackGridToken.src = "img/Black.png";      
       };
+
+      var whiteGridToken = "";
+         for (let i = 0; i < mainFieldWhite.length; i++) {
+            whiteGridToken = document.querySelector("." + "w" + mainFieldWhite[i] + "img")
+            whiteGridToken.src = "img/White.png";      
+         };
       alert("Black LOSES TURN!");
    } 
 
 
 });
-// functionTestBlack.addEventListener('click', function () {
-//    if (startingBlackTokensGrid.length = 6 && playerTurnColor === 'b'&& diceTotal !== 0) {
-//    mainFieldBlack.push(diceTotal);
-//    whiteDiceRoll.disabled = false;
-//    //console.log("Black Main Field " + mainFieldBlack);
-//    document.getElementById('blackdicediv').innerHTML ="";
-   
-//    } else if (diceTotal === 0) {
-//       playerTurnColor === 'w';
-//       whiteDiceRoll.disabled = false;
-//       //diceTotal = 0;
-//       document.getElementById('blackdicediv').innerHTML = "";
-//       alert("Black LOSES TURN!");
-//    } 
-// });
-// //End function test
+
 
 // // var initialWhiteMove = function () {
 // //    if (startingWhiteTokensGrid.length = 6 && playerTurnColor === 'w'&& diceTotal !== 0) {
