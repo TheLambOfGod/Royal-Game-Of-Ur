@@ -261,7 +261,7 @@ blackDiceRoll.addEventListener('click', function() {
 functionTestWhite.addEventListener('click', function() {
    //This will clear the main field of images
       if (whitePossibleMoves.includes(parseInt(moveNumberWhite.value))) {
-      imgs = document.querySelectorAll('main img');
+      imgs = document.querySelectorAll('main .w');
       console.log("Imgs ", imgs);
       imgs.forEach(img => img.src = "")
       console.log("Imgs cleared ", imgs);
