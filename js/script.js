@@ -36,6 +36,10 @@ var nums2;
 var nums3;
 var nums4;
 var whiteGridToken;
+var whiteOnBlackCollision = [];
+var blackOnWhiteCollision = [];
+var collisionTempWhite;
+var collisionTempBlack;
 
 
 //The below function initializes/resets the game when called on
@@ -112,12 +116,14 @@ var possibleMovesFuncWhite = function () {
       for (let i = 0; i < mainFieldWhite.length; i++) {
             whitePossibleMovesTemp.push(mainFieldWhite[i] + diceTotal);
             console.log("White Possible Moves Temp ", whitePossibleMovesTemp);
+
+            //The below removes impossible white-on-white moves from the possible moves array
             notPossibleWhite = whitePossibleMovesTemp.filter(value => mainFieldWhite.includes(value));
             console.log("Not possible moves white ", notPossibleWhite);
 
             whitePossibleMoves = whitePossibleMovesTemp.filter(function(value) {
-            return !notPossibleWhite.includes(value)
-         });
+            return !notPossibleWhite.includes(value);
+            });
    
          console.log("White Possible Moves ", whitePossibleMoves);
 
@@ -126,15 +132,23 @@ var possibleMovesFuncWhite = function () {
          // });
          console.log("Ending White Tokens ", endingWhiteTokens);
          console.log("White Main Field after pushing ending white tokens ", mainFieldWhite);
-         console.log("Starting White Tokens D ", startingWhiteTokens);
+            ("Starting White Tokens D ", startingWhiteTokens);
 
-         //if there are no impossible moves in the temp array, push all temp values to the possible moves grid
+         //if there are no impossible moves in the white possible temp array, push all temp values to the possible moves grid
             if (notPossibleWhite.length = 0) {
                for (let i = 0; i < whitePossibleMovesTemp.length; i++) {
                   whitePossibleMoves = whitePossibleMovesTemp;
                }
             }
-      }
+
+         };
+         console.log("This is mainfieldblack test A ", mainFieldBlack);
+       
+         whiteOnBlackCollision =  whitePossibleMoves.filter(value => mainFieldBlack.includes(value)).filter(value => {
+            return value > 4 && value < 13
+         });
+         console.log("White on Black collision " + whiteOnBlackCollision);
+        
       
     } else if (mainFieldWhite.length > 0 && diceTotal > 0 && startingWhiteTokens === 0) {
       for (let i = 0; i < mainFieldWhite.length; i++) {
@@ -154,8 +168,16 @@ var possibleMovesFuncWhite = function () {
          console.log("Ending White Tokens ", endingWhiteTokens);
          console.log("White Main Field after pushing ending white tokens ", mainFieldWhite);
          console.log("Starting White Tokens D ", startingWhiteTokens);
-      }
-   }
+      };
+      
+      
+         whiteOnBlackCollision =  whitePossibleMoves.filter(value => mainFieldBlack.includes(value)).filter(value => {
+            return value > 4 && value < 13
+         });
+        console.log("White on Black collision " + whiteOnBlackCollision);
+     
+   
+   };
 };
 
 var possibleMovesFuncBlack = function () {
@@ -197,8 +219,15 @@ var possibleMovesFuncBlack = function () {
                for (let i = 0; i < blackPossibleMovesTemp.length; i++) {
                   blackPossibleMoves = blackPossibleMovesTemp;
                }
-            }
-      }
+            };
+         }
+   
+         blackOnWhiteCollision = mainFieldWhite.filter(value => blackPossibleMoves.includes(value)).filter(value => {
+            return value > 4 && value < 13
+         });
+         console.log("Black on White collision " + blackOnWhiteCollision);
+      
+      
       
     } else if (mainFieldBlack.length > 0 && diceTotal > 0 && startingBlackTokens === 0) {
       for (let i = 0; i < mainFieldBlack.length; i++) {
@@ -218,7 +247,14 @@ var possibleMovesFuncBlack = function () {
          console.log("Ending black Tokens ", endingBlackTokens);
          console.log("black Main Field after pushing ending black tokens ", mainFieldBlack);
          console.log("Starting black Tokens D ", startingBlackTokens);
-      }
+
+         
+      };
+      blackOnWhiteCollision = mainFieldWhite.filter(value => blackPossibleMoves.includes(value)).filter(value => {
+         return value > 4 && value < 13
+      });
+      console.log("Black on White collision " + blackOnWhiteCollision);
+     
    }
 };
 
@@ -239,8 +275,6 @@ whiteDiceRoll.addEventListener('click', function() {
    whiteDiceRoll.disabled = true;
    blackDiceRoll.disabled = true;
    playerTurnColor = 'w'; 
-   //console.log("Player Turn Color = " + playerTurnColor);
-   //console.log("White Main Field ", mainFieldWhite);
    document.getElementById('whitedicediv').innerHTML = diceTotal;
 });
 
@@ -262,9 +296,7 @@ functionTestWhite.addEventListener('click', function() {
    //This will clear the main field of images
       if (whitePossibleMoves.includes(parseInt(moveNumberWhite.value))) {
       imgs = document.querySelectorAll('main .w');
-      console.log("Imgs ", imgs);
       imgs.forEach(img => img.src = "")
-      console.log("Imgs cleared ", imgs);
       };
    //Move token from grid to board - If player rolls greater than 0 and no pieces are on the board...
    if (playerTurnColor === 'w' && diceTotal !== 0 && mainFieldWhite.length === 0
@@ -312,22 +344,30 @@ functionTestWhite.addEventListener('click', function() {
        //If player rolls greater than 0 and pieces are on the board....
    }  else if (playerTurnColor === 'w' && diceTotal !== 0 && mainFieldWhite.length > 0
       && whitePossibleMoves.includes(parseInt(moveNumberWhite.value))) {
-         console.log("This is TRUE");
 
+         //removeChosen removes the moved token from its original position in the mainField array
          removeChosen = moveNumberWhite.value - diceTotal;
          console.log("Remove Chosen ", removeChosen);
+
+         //the below places the token that was removed in the step above and places it on the chosen place in the main field
          mainFieldWhite.push(parseInt(moveNumberWhite.value));
          console.log("Main white field after adding chosen ", mainFieldWhite);
+
+         //mainFieldFilterArray is a short-term variable that removes the initial token position before it was moved
          mainFieldWhiteFilterArray = mainFieldWhite.filter(function(value) {
            return value !== removeChosen;
          });
          mainFieldWhite = mainFieldWhiteFilterArray;
          console.log("Main Field returned minus removeChosen ", mainFieldWhiteFilterArray);
-         
+
+         //if the token lands on a square occupied by the opponent...
+         //removes the token of the starting grid
          if (mainFieldWhite.length > 0) { 
             startingWhiteTokens = (6 - mainFieldWhite.length - endingWhiteTokens.length);
          };
-
+         
+         
+         
          nums = mainFieldWhite.filter(function(value) {
             return value > 14;
          });
@@ -336,10 +376,10 @@ functionTestWhite.addEventListener('click', function() {
          };
          console.log("Numbers greater than 14 ", nums);
          nums2 = mainFieldWhite.filter(function(val) {
-          return !nums.includes(val);
-        });
-        console.log("main field white without numbers greater than 14 ", nums2);
-
+            return !nums.includes(val);
+         });
+         console.log("main field white without numbers greater than 14 ", nums2);
+         
          mainFieldWhite = nums2;
          console.log("Mainfield White after removing greater than 14 ", nums2);
          console.log("Ending White Tokens ", endingWhiteTokens);
@@ -362,19 +402,30 @@ functionTestWhite.addEventListener('click', function() {
             whiteGridToken = document.querySelector("." + "w" + mainFieldWhite[i] + "img")
             whiteGridToken.src = "img/White.png";      
          };
-
+         
          var blackGridToken = "";
          for (let i = 0; i < mainFieldBlack.length; i++) {
-           var blackGridToken = document.querySelector("." + "b" + mainFieldBlack[i] + "img");
-           blackGridToken.src = "img/Black.png";
-           console.log("black grid token ", blackGridToken);      
-        };
+            var blackGridToken = document.querySelector("." + "b" + mainFieldBlack[i] + "img");
+            blackGridToken.src = "img/Black.png";    
+         };
 
-      // If player rolls 0...   
-      } else if (diceTotal === 0) {
+         //If token lands on the opponents piece...
+         if (whiteOnBlackCollision.includes(parseInt(moveNumberWhite.value))) {
+            collisionTempWhite = mainFieldBlack.filter(function(value) {
+               return value !== parseInt(moveNumberWhite.value);
+            });
+            console.log("CollisionTempWhite ", collisionTempWhite)
+            mainFieldBlack = collisionTempWhite;
+            startingBlackTokens += 1;
+            console.log("Black main field after filtering out whites attack move", mainFieldBlack);
+            console.log("Main field White after removing attacked piece ", mainFieldWhite);
+         };
+         
+         // If player rolls 0...   
+      } else if (diceTotal === 0 && playerTurnColor === 'w') {
          console.log("Zero");
-
-      playerTurnColor === 'b';
+         
+         playerTurnColor === 'b';
       console.log("Starting White Tokens Grid C ", startingWhiteTokens);
       blackDiceRoll.disabled = false;
       diceTotal = null;
@@ -405,9 +456,7 @@ functionTestWhite.addEventListener('click', function() {
 functionTestBlack.addEventListener('click', function() {
       if (blackPossibleMoves.includes(parseInt(moveNumberBlack.value))) {
       imgs = document.querySelectorAll('main .b');
-      console.log("Imgs ", imgs);
       imgs.forEach(img => img.src = "")
-      console.log("Imgs cleared ", imgs);
       };
 
    //Move token from grid to board - If player rolls greater than 0 and no pieces are on the board...
@@ -501,8 +550,7 @@ functionTestBlack.addEventListener('click', function() {
          
          for (let i = 0; i < mainFieldBlack.length; i++) {
             var blackGridToken = document.querySelector("." + "b" + mainFieldBlack[i] + "img");
-            blackGridToken.src = "img/Black.png";  
-            console.log("black grid token ", blackGridToken);    
+            blackGridToken.src = "img/Black.png";    
          };
 
          var whiteGridToken = "";
@@ -510,9 +558,19 @@ functionTestBlack.addEventListener('click', function() {
             whiteGridToken = document.querySelector("." + "w" + mainFieldWhite[i] + "img")
             whiteGridToken.src = "img/White.png";      
          };
+         //If token lands on opponents piece...
+         if (blackOnWhiteCollision.includes(parseInt(moveNumberBlack.value))) {
+            console.log("Move Number Box value ", moveNumberBlack.value);
+            collisionTempBlack = mainFieldWhite.filter(function(value) {
+               return value !== parseInt(moveNumberBlack.value);
+            });
+            mainFieldWhite = collisionTempBlack;
+            startingWhiteTokens += 1;
+            console.log("Main field White after removing attacked piece ", mainFieldWhite);
+         }
          
          // If player rolls 0...   
-      } else if (diceTotal === 0) {
+      } else if (diceTotal === 0 && playerTurnColor === 'b') {
          console.log("Zero");
 
       playerTurnColor === 'w';
