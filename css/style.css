@@ -1,8 +1,9 @@
 body {
     display: grid;
-    grid-template-rows: repeat(4, 160px);
+    grid-template-rows: repeat(5, 160px);
     grid-template-columns: repeat(3, 1fr);
     grid-template-areas:
+        "whitetokensstart main blacktokensstart"
         "whitetokensstart main blacktokensstart"
         "whitediceroll main blackdiceroll"
         "whitetokensfinished main blacktokensfinished"
@@ -31,6 +32,14 @@ body::after {
         "whttkn1"
         "whttkntext";
 
+}
+
+#whttkntext {
+    font-size: 2em;
+}
+
+#blktkntext {
+    font-size: 2em;
 }
 #blacktokensstart {
     display: grid;
@@ -72,6 +81,38 @@ main {
         "w14 f11 b14"
         "w13 f12 b13";
     justify-self: center;
+}
+button {
+    font-family: 'Cinzel', serif;
+    font-size: 1em;
+    font-weight: 900;
+}
+
+.dicebutton {
+    width:40px;
+
+}
+
+#blackdicebtn {
+    background-color: black;
+    color: white;
+}
+
+#functiontestbutton2 {
+    background-color: black;
+    color: white;
+}
+
+#blackmovebox {
+    height: 1em;
+    font-size: 2em;
+    width:50px;
+}
+
+#whitemovebox {
+    height: 1em;
+    font-size: 2em;
+    width: 50px;
 }
 .boarddivs {
     border: 1px solid black;
@@ -217,9 +258,6 @@ main {
 #blktkntext {
     grid-area: blktkntext;
 }
-#whitetokensstart {
-    grid-area: whitetokensstart;
-}
 #blacktokensstart {
     grid-area: blacktokensstart;
     justify-self: end;
@@ -237,6 +275,7 @@ main {
 #whtcomptext {
     grid-area: whtcomptext;
     align-self: flex-end;
+    font-size: 2em;
 }
 #blkcomp1 {
     grid-area: blkcomp1;
@@ -244,6 +283,7 @@ main {
 #blkcomptext {
     grid-area: blkcomptext;
     align-self: flex-end;
+    font-size: 2em;
 }
 #whitediceroll {
     grid-area: whitediceroll;

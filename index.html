@@ -6,20 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Cinzel&display=swap" rel="stylesheet">
 
 </head>
     <body>
         <div class="whitetokensgrid" id="whitetokensstart">
-            <div id="whttkn1" class="whttknbox">
+            <div id="whttkn1" class="whttknbox w0img w-1img w-2img w-3img w-4img">
                 <img id="whitetokenstartgrid" src="img/White6.png" alt="">
             </div>
             <div id="whttkntext">Starting Tokens</div>
         </div>
+    </div>
         <div id="whitediceroll" class="diceroll">
             <div id="whitedicediv" class="dicediv"></div>
             <br>
             <button id="whitedicebtn" class="dicebutton">Roll Dice</button>
             <input id="whitemovebox" type="number">
+            <button id="functiontestbutton">Move White</button>
         </div>
         <div class="whitetokensgrid" id="whitetokensfinished">
             <div id="whtcomptext">Tokens Complete!</div>
@@ -47,28 +50,28 @@
                 <img class="w w14img" src="" alt="">
             </div>
             <div id="f5" class="battledivs boarddivs">
-                <img class="w b w5img b5img" src="" alt="">
+                <img class="w b f w5img b5img" src="" alt="">
             </div>
             <div id="f6" class="battledivs boarddivs">
-                <img class="w b w6img b6img" src="" alt="">
+                <img class="w b f w6img b6img" src="" alt="">
             </div>
             <div id="f7" class="battledivs boarddivs">
-                <img class="w b w7img b7img" src="" alt="">
+                <img class="w b f w7img b7img" src="" alt="">
             </div>
             <div id="f8" class="battledivs boarddivs">
-                <img class="w b w8img b8img" src="" alt="">
+                <img class="w b f w8img b8img" src="" alt="">
             </div>
             <div id="f9" class="battledivs boarddivs">
-                <img class="w b w9img b9img" src="" alt="">
+                <img class="w b f w9img b9img" src="" alt="">
             </div>
             <div id="f10" class="battledivs boarddivs">
-                <img class="w b w10img b10img" src="" alt="">
+                <img class="w b f w10img b10img" src="" alt="">
             </div>
             <div id="f11" class="battledivs boarddivs">
-                <img class="w b w11img b11img" src="" alt="">
+                <img class="w b f w11img b11img" src="" alt="">
             </div>
             <div id="f12" class="battledivs boarddivs">
-                <img class="w b w12img b12img" src="" alt="">
+                <img class="w b f w12img b12img" src="" alt="">
             </div>
             <div id="b1" class="blackdivs boarddivs">
                 <img class="b b1img" src="" alt="">
@@ -94,7 +97,7 @@
             <div id="blank4" class="blankdivs">BLACK finish</div>
         </main>
         <div class="blacktokensgrid" id="blacktokensstart">
-                <div id="blktkn1" class="blktknbox">
+                <div id="blktkn1" class="blktknbox b0img b-1img b-2img b-3img b-4img">
                     <img id="blacktokenstartgrid" src="img/Black6.png" alt="">
                 </div>
                 <div id="blktkntext">Starting Tokens</div>
@@ -104,6 +107,8 @@
             <br>
             <button id="blackdicebtn" class="dicebutton">Roll Dice</button>
             <input id="blackmovebox" type="number" value="" >
+            <button id="functiontestbutton2">Move Black</button>
+            
         </div>
         <div class="blacktokensgrid" id="blacktokensfinished">
                 <div id="blkcomptext">Tokens Complete!</div>
@@ -113,9 +118,9 @@
             
                 
         </div>
-        <button id="functiontestbutton">Function Test</button>
         
-        <button id="functiontestbutton2">Function Test2</button>
+        
+        
         
         <script src="js/script.js"></script>    
     </body>
