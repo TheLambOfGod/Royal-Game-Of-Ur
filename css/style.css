@@ -103,10 +103,12 @@ button {
     color: white;
 }
 
+
 #blackmovebox {
     height: 1em;
     font-size: 2em;
     width:50px;
+    align-self: baseline;
 }
 
 #whitemovebox {
@@ -161,7 +163,7 @@ button {
     grid-area: w13;
     border-bottom: 6px solid black;
     
-
+    
 }
 #w14 {
     grid-area: w14;
@@ -319,4 +321,12 @@ button {
 .dicediv {
     background-color: aliceblue;
     font-size: xx-large;
+
+}
+
+
+.text {
+    font-family: 'Cinzel', serif;
+    font-size: 1em;
+    font-weight: 900;
 }
